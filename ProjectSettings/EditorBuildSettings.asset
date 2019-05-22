@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/leVRn-beta/Scenes/mainScene.unity
+    guid: b8f9ebc2fcb747443b5675327b5f681d
   m_configObjects: {}
