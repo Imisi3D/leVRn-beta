@@ -62,13 +62,18 @@ namespace ControllerSelection {
             }
         }
 
-        public void SetPointer(Ray ray) {
-            if (linePointer != null) {
+        public void SetPointer(Ray ray){
+            if (linePointer != null){
                 linePointer.SetPosition(0, ray.origin);
-                linePointer.SetPosition(1, ray.origin + ray.direction * rayDrawDistance);
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit)){
+                    linePointer.SetPosition(1, ray.origin + ray.direction * hit.distance);
+                }
+                else
+                    linePointer.SetPosition(1, ray.origin + ray.direction * rayDrawDistance);
             }
 
-            if (gazePointer != null) {
+            if (gazePointer != null){
                 gazePointer.position = ray.origin + ray.direction * gazeDrawDistance;
             }
         }
