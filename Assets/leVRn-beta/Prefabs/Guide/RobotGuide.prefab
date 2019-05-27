@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!65 &3623045962266479932
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5859354994426301528}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 325.19763, y: 275.46484, z: 192.43437}
+  m_Center: {x: -1.2308197, y: 17127.709, z: 972.4351}
 --- !u!114 &1321256611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12,7 +25,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54521ef990537084097b40fe55338ce0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holder: {fileID: 0}
   introduction: {fileID: 0}
+  energyDefinition: {fileID: 0}
+  potentialEnergy: {fileID: 0}
+  potentialContinue: {fileID: 0}
+  potentialPosition: {fileID: 0}
+  potentialBook: {fileID: 0}
 --- !u!1001 &5860667852981711556
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -306,6 +325,12 @@ PrefabInstance:
 --- !u!1 &5860146920383556182 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1735918717835410, guid: d5f2e05bd3e38e6498455b55d0ed107a,
+    type: 3}
+  m_PrefabInstance: {fileID: 5860667852981711556}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5859354994426301528 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1647131974074012, guid: d5f2e05bd3e38e6498455b55d0ed107a,
     type: 3}
   m_PrefabInstance: {fileID: 5860667852981711556}
   m_PrefabAsset: {fileID: 0}

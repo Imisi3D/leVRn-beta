@@ -5,4 +5,5 @@ using UnityEngine;
 public class ScriptableObjectsHolder : ScriptableObject
 {
     public AnimationTriggers animationTriggers;
+    public SceneLoader sceneLoader;
 }

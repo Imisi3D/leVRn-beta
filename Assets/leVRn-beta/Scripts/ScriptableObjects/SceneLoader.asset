@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cb37fd24a65ac14283f0f8e199efb9b, type: 3}
-  m_Name: ScriptableObjectsHolder
+  m_Script: {fileID: 11500000, guid: 0d94b7ab5db51bc44aab9e7c8a9f123e, type: 3}
+  m_Name: SceneLoader
   m_EditorClassIdentifier: 
-  animationTriggers: {fileID: 11400000, guid: c5763bf6087550a429134f6ad99b3dac, type: 2}
-  sceneLoader: {fileID: 11400000, guid: 2e8bf708b79fe944e8a3cde136ab6267, type: 2}
+  mainScene: 0
+  streetScene: 1
+  loadingSphere: {fileID: 5541169292367334228, guid: 4190e056dfd7f014cb2dc3a212611411,
+    type: 3}

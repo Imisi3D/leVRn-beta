@@ -77,6 +77,13 @@ public class Storyteller : MonoBehaviour
         guide.PotentialBook();
         await new WaitForSeconds(shortBreak);
         prop.ActivateBookExample();
+        GoToStreet();
+    }
+
+    async void GoToStreet(){
+        await new WaitUntil((() => !guide.audioSource.isPlaying));
+        await new WaitForSeconds(shortBreak);
+        holder.sceneLoader.LoadStreetScene();
     }
     
     
