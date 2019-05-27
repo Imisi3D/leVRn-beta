@@ -12,11 +12,13 @@ public class UIController : MonoBehaviour
     private GameObject screen;
     
     [SerializeField]
-    public Text screenText;
+    private Text screenText;
 
     [SerializeField] 
-    public GameObject textHolder;
+    private GameObject workHolder;
 
+    [SerializeField] 
+    private GameObject restHolder;
     private static readonly int Vanish = Animator.StringToHash("Vanish");
     // Start is called before the first frame update
 
@@ -32,9 +34,14 @@ public class UIController : MonoBehaviour
         title.GetComponent<Animator>().SetTrigger(Vanish);
     }
 
-    public void DisplayWork(){
-        textHolder.SetActive(true);
+    public void ToggleWork(){
+        workHolder.SetActive(!workHolder.activeSelf);
     }
+    
+    public void ToggleRest(){
+        restHolder.SetActive(!restHolder.activeSelf);
+    }
+
     
     
 }

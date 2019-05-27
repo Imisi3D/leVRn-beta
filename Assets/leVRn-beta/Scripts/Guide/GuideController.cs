@@ -9,6 +9,10 @@ public class GuideController : MonoBehaviour
     [Header("Voice Overs")] 
     public AudioClip introduction;
     public AudioClip energyDefinition;
+    public AudioClip potentialEnergy;
+    public AudioClip potentialContinue;
+    public AudioClip potentialPosition;
+    public AudioClip potentialBook;
     
     private Animator anim;
     [NonSerialized]
@@ -26,9 +30,20 @@ public class GuideController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
+    public void PotentialEnergy(){
+        PlayAudio(potentialEnergy);
+    }
+
+    public void PotentialContinue(){
+        PlayAudio(potentialContinue);
+    }
+
+    public void PotentialPosition(){
+        PlayAudio(potentialPosition);
+    }
+
+    public void PotentialBook(){
+        PlayAudio(potentialBook);
     }
     
     public void Introduction(){

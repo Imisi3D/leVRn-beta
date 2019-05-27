@@ -5,7 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "AnimationTrigger", menuName = "Guide/AnimationTrigger")]
 public class AnimationTriggers : ScriptableObject
 {
-    public bool WaveBegun{ get; set; } = false;
-    public bool WaveEnded{ get; set; } = false;
-    public bool PowerOnEnded{ get; set; } = false;
+    public bool WaveBegun{ get; set; }
+    public bool WaveEnded{ get; set; }
+    public bool PowerOnEnded{ get; set; }
+
 }

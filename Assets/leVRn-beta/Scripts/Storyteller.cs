@@ -7,6 +7,10 @@ public class Storyteller : MonoBehaviour
     public ScriptableObjectsHolder holder;
     public GuideController guide;
     public UIController ui;
+    public PropController prop;
+
+    private float shortBreak = 0.5f;
+    private float longBreak = 2f;
 
     private void Start(){
         BeginIntroduction();
@@ -24,22 +28,60 @@ public class Storyteller : MonoBehaviour
     }
 
     async void DefineEnergy(){
-        await new WaitForSeconds(4f);
-        ui.RemoveTitle();
+        RemoveTitle();
         await new WaitUntil((() => !guide.audioSource.isPlaying));
         ui.ActivateScreen();
-        ui.DisplayOnScreen($"Energy is the ability to do <size=300><color=lime>work</color></size>");
+        ui.DisplayOnScreen("<size=300><color=lime>Energy</color></size> is the ability to do <size=300><color=lime>work</color></size>");
         guide.GestureToScreen();
-        await new WaitForSeconds(0.5f);
+        await new WaitForSeconds(shortBreak);
         guide.DefineEnergy();
         PotentialEnergy();
     }
 
+    
+
     async void PotentialEnergy(){
         await new WaitUntil((() => !guide.audioSource.isPlaying));
-        ui.DisplayWork();
+        ui.ToggleWork();
+        await new WaitForSeconds(longBreak);
+        ui.ToggleWork();
+        ui.DisplayOnScreen("<size=300><color=lime>Potential energy</color></size> is the energy stored by a body at <size=300><color=lime>rest</color></size>");
+        guide.GestureToScreen();
+        await new WaitForSeconds(shortBreak);
+        guide.PotentialEnergy();
+        PotentialEnergyContinue();
+    }
+
+    async void PotentialEnergyContinue(){
+        await new WaitUntil((() => !guide.audioSource.isPlaying));
+        ui.ToggleRest();
+        await new WaitForSeconds(shortBreak);
+        guide.PotentialContinue();
+        PotentialPosition();
+    }
+
+    async void PotentialPosition(){
+        await new WaitUntil((() => !guide.audioSource.isPlaying));
+        ui.ToggleRest();
+        await new WaitForSeconds(shortBreak);
+        guide.PotentialPosition();
+        ui.DisplayOnScreen("<size=300><color=lime>Potential energy</color></size> is also the energy a body has because of its <size=300><color=lime>position</color></size>");
+        await new WaitForSeconds(shortBreak);
+        guide.GestureToScreen();
+        PotentialBook();
+    }
+
+    async void PotentialBook(){
+        await new WaitUntil((() => !guide.audioSource.isPlaying));
+        await new WaitForSeconds(shortBreak);
+        guide.PotentialBook();
+        await new WaitForSeconds(shortBreak);
+        prop.ActivateBookExample();
     }
     
     
-    
+    async void RemoveTitle(){
+        await new WaitForSeconds(4f);
+        ui.RemoveTitle();
+    }
 }
