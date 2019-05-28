@@ -5,7 +5,12 @@ using UnityEngine;
 
 public class GuideController : MonoBehaviour
 {
+    
     public ScriptableObjectsHolder holder;
+    public Transform mainCamera;
+
+    public GameObject speechBubble;
+    
     [Header("Voice Overs")] 
     public AudioClip introduction;
     public AudioClip energyDefinition;
@@ -21,12 +26,17 @@ public class GuideController : MonoBehaviour
     private static readonly int On = Animator.StringToHash("PowerOn");
     private static readonly int Wave = Animator.StringToHash("Wave");
     private static readonly int ToScreen = Animator.StringToHash("GestureToScreen");
+    private static readonly int Talking = Animator.StringToHash("Talking");
 
 
     // Start is called before the first frame update
     void Start(){
         anim = GetComponent<Animator>();
         audioSource = GetComponentInChildren<AudioSource>();
+    }
+
+    void Update(){
+        transform.LookAt(mainCamera,Vector3.up);
     }
 
     // Update is called once per frame
@@ -56,6 +66,8 @@ public class GuideController : MonoBehaviour
 
     private void PlayAudio(AudioClip clip){
         audioSource.PlayOneShot(clip);
+        anim.SetBool(Talking,true);
+        speechBubble.SetActive(true);
     }
 
     public void PowerOn(){
@@ -65,7 +77,11 @@ public class GuideController : MonoBehaviour
     public void GestureToScreen(){
         anim.SetTrigger(ToScreen);
     }
-    
+
+    public void DoneTalking(){
+        anim.SetBool(Talking, false);
+        speechBubble.SetActive(false);
+    }
 
     public void TriggerWaveBegun(){
         holder.animationTriggers.WaveBegun = true;

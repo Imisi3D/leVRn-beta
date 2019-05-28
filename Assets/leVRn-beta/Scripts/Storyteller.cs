@@ -12,6 +12,10 @@ public class Storyteller : MonoBehaviour
     private float shortBreak = 0.5f;
     private float longBreak = 2f;
 
+    private void Awake(){
+        DontDestroyOnLoad(gameObject);
+    }
+
     private void Start(){
         BeginIntroduction();
     }
@@ -30,6 +34,7 @@ public class Storyteller : MonoBehaviour
     async void DefineEnergy(){
         RemoveTitle();
         await new WaitUntil((() => !guide.audioSource.isPlaying));
+        guide.DoneTalking();
         ui.ActivateScreen();
         ui.DisplayOnScreen("<size=300><color=lime>Energy</color></size> is the ability to do <size=300><color=lime>work</color></size>");
         guide.GestureToScreen();
@@ -42,6 +47,7 @@ public class Storyteller : MonoBehaviour
 
     async void PotentialEnergy(){
         await new WaitUntil((() => !guide.audioSource.isPlaying));
+        guide.DoneTalking();
         ui.ToggleWork();
         await new WaitForSeconds(longBreak);
         ui.ToggleWork();
@@ -54,6 +60,7 @@ public class Storyteller : MonoBehaviour
 
     async void PotentialEnergyContinue(){
         await new WaitUntil((() => !guide.audioSource.isPlaying));
+        guide.DoneTalking();
         ui.ToggleRest();
         await new WaitForSeconds(shortBreak);
         guide.PotentialContinue();
@@ -62,6 +69,7 @@ public class Storyteller : MonoBehaviour
 
     async void PotentialPosition(){
         await new WaitUntil((() => !guide.audioSource.isPlaying));
+        guide.DoneTalking();
         ui.ToggleRest();
         await new WaitForSeconds(shortBreak);
         guide.PotentialPosition();
@@ -73,6 +81,7 @@ public class Storyteller : MonoBehaviour
 
     async void PotentialBook(){
         await new WaitUntil((() => !guide.audioSource.isPlaying));
+        guide.DoneTalking();
         await new WaitForSeconds(shortBreak);
         guide.PotentialBook();
         await new WaitForSeconds(shortBreak);
@@ -82,6 +91,7 @@ public class Storyteller : MonoBehaviour
 
     async void GoToStreet(){
         await new WaitUntil((() => !guide.audioSource.isPlaying));
+        guide.DoneTalking();
         await new WaitForSeconds(shortBreak);
         holder.sceneLoader.LoadStreetScene();
     }

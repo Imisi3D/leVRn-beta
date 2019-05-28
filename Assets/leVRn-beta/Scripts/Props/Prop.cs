@@ -19,7 +19,6 @@ public abstract class Prop : MonoBehaviour
     public float initialKinetic;
     public float initialVelocity;
 
-/*    private float currentPotential, currentKinetic, currentVel;*/
     public string propTitle;
     public Text titleText;
 
@@ -27,7 +26,7 @@ public abstract class Prop : MonoBehaviour
 
     void Start(){
         anim = GetComponent<Animator>();
-        
+        titleText.text = propTitle;
         ResetBars();
     }
 
