@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class Prop : MonoBehaviour
+public abstract class Prop : PropBase
 {
-    public ScriptableObjectsHolder holder;
     public SimpleHealthBar potentialEnergy;
     public SimpleHealthBar kineticEnergy;
     public SimpleHealthBar velocity;
@@ -19,7 +18,7 @@ public abstract class Prop : MonoBehaviour
     public float initialKinetic;
     public float initialVelocity;
 
-    public string propTitle;
+    
     public Text titleText;
 
     protected Animator anim;

@@ -1,23 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Storyteller : MonoBehaviour
 {
     public ScriptableObjectsHolder holder;
     public GuideController guide;
     public UIController ui;
-    public PropController prop;
 
     private float shortBreak = 0.5f;
     private float longBreak = 2f;
 
-    private void Awake(){
+    /*private void Awake(){
         DontDestroyOnLoad(gameObject);
-    }
+    }*/
 
     private void Start(){
-        BeginIntroduction();
+        if (holder.phase == 0)
+            BeginIntroduction();
+        else if (holder.phase == 1)
+            IntroduceStreet();
     }
 
     public void SetActive(GameObject element){
@@ -36,7 +39,7 @@ public class Storyteller : MonoBehaviour
         await new WaitUntil((() => !guide.audioSource.isPlaying));
         guide.DoneTalking();
         ui.ActivateScreen();
-        ui.DisplayOnScreen("<size=300><color=lime>Energy</color></size> is the ability to do <size=300><color=lime>work</color></size>");
+        ui.DisplayOnScreen("Energy is the ability to do <size=300><color=lime>work</color></size>");
         guide.GestureToScreen();
         await new WaitForSeconds(shortBreak);
         guide.DefineEnergy();
@@ -51,7 +54,7 @@ public class Storyteller : MonoBehaviour
         ui.ToggleWork();
         await new WaitForSeconds(longBreak);
         ui.ToggleWork();
-        ui.DisplayOnScreen("<size=300><color=lime>Potential energy</color></size> is the energy stored by a body at <size=300><color=lime>rest</color></size>");
+        ui.DisplayOnScreen("Potential energy is the energy stored by a body at <size=300><color=lime>rest</color></size>");
         guide.GestureToScreen();
         await new WaitForSeconds(shortBreak);
         guide.PotentialEnergy();
@@ -73,7 +76,7 @@ public class Storyteller : MonoBehaviour
         ui.ToggleRest();
         await new WaitForSeconds(shortBreak);
         guide.PotentialPosition();
-        ui.DisplayOnScreen("<size=300><color=lime>Potential energy</color></size> is also the energy a body has because of its <size=300><color=lime>position</color></size>");
+        ui.DisplayOnScreen("Potential energy is also the energy a body has because of its <size=300><color=lime>position</color></size>");
         await new WaitForSeconds(shortBreak);
         guide.GestureToScreen();
         PotentialBook();
@@ -85,7 +88,7 @@ public class Storyteller : MonoBehaviour
         await new WaitForSeconds(shortBreak);
         guide.PotentialBook();
         await new WaitForSeconds(shortBreak);
-        prop.ActivateBookExample();
+        holder.propController.ActivateBookExample();
         GoToStreet();
     }
 
@@ -93,12 +96,70 @@ public class Storyteller : MonoBehaviour
         await new WaitUntil((() => !guide.audioSource.isPlaying));
         guide.DoneTalking();
         await new WaitForSeconds(shortBreak);
+        holder.phase = 1;
         holder.sceneLoader.LoadStreetScene();
+    }
+
+    async void IntroduceStreet(){
+        guide.ForceIdle();
+        await new WaitForSeconds(longBreak);
+        guide.StreetIntroduction();
+        SignpostExample();
+    }
+
+    async void SignpostExample(){
+        await new WaitUntil((() => !guide.audioSource.isPlaying));
+        guide.DoneTalking();
+        await new WaitForSeconds(shortBreak);
+        guide.SignpostExample();
+        holder.propController.HighlightProp("Signpost");
+        BirdExample();
+    }
+
+    async void BirdExample(){
+        await new WaitUntil((() => !guide.audioSource.isPlaying));
+        guide.DoneTalking();
+        holder.propController.UnhighlightProp("Signpost");
+        await new WaitForSeconds(shortBreak);
+        guide.BirdExample();
+        holder.propController.HighlightProp("Bird");
+        FruitsExample();
+    }
+    
+    async void FruitsExample(){
+        await new WaitUntil((() => !guide.audioSource.isPlaying));
+        guide.DoneTalking();
+        holder.propController.UnhighlightProp("Bird");
+        await new WaitForSeconds(shortBreak);
+        guide.FruitsExample();
+        holder.propController.HighlightProp("Fruits");
+        PotentialConclusion();
+    }
+
+    async void PotentialConclusion(){
+        await new WaitUntil((() => !guide.audioSource.isPlaying));
+        guide.DoneTalking();
+        holder.propController.UnhighlightProp("Fruits");
+        await new WaitForSeconds(shortBreak);
+        guide.PotentialConclusion();
+        GoBackToSimulationRoom();
+    }
+    
+    async void GoBackToSimulationRoom(){
+        await new WaitUntil((() => !guide.audioSource.isPlaying));
+        guide.DoneTalking();
+        await new WaitForSeconds(shortBreak);
+        holder.phase = 2;
+        holder.sceneLoader.LoadSimulationScene();       
     }
     
     
     async void RemoveTitle(){
         await new WaitForSeconds(4f);
         ui.RemoveTitle();
+    }
+
+    private void OnApplicationQuit(){
+        holder.phase = 0;
     }
 }

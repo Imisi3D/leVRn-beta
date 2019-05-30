@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animationTriggers: {fileID: 11400000, guid: c5763bf6087550a429134f6ad99b3dac, type: 2}
   sceneLoader: {fileID: 11400000, guid: 2e8bf708b79fe944e8a3cde136ab6267, type: 2}
+  propController: {fileID: 11400000, guid: 6dd38fe4ce1eead49b9cb7546f4c5240, type: 2}
+  phase: 2

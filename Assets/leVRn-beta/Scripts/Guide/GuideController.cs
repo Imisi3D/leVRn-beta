@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GuideController : MonoBehaviour
@@ -8,6 +6,7 @@ public class GuideController : MonoBehaviour
     
     public ScriptableObjectsHolder holder;
     public Transform mainCamera;
+    public Transform user;
 
     public GameObject speechBubble;
     
@@ -18,6 +17,11 @@ public class GuideController : MonoBehaviour
     public AudioClip potentialContinue;
     public AudioClip potentialPosition;
     public AudioClip potentialBook;
+    public AudioClip streetIntroduction;
+    public AudioClip birdExample;
+    public AudioClip signpostExample;
+    public AudioClip fruitsExample;
+    public AudioClip potentialConclusion;
     
     private Animator anim;
     [NonSerialized]
@@ -27,12 +31,13 @@ public class GuideController : MonoBehaviour
     private static readonly int Wave = Animator.StringToHash("Wave");
     private static readonly int ToScreen = Animator.StringToHash("GestureToScreen");
     private static readonly int Talking = Animator.StringToHash("Talking");
-
+    private static readonly int Idle = Animator.StringToHash("Idle");
 
     // Start is called before the first frame update
-    void Start(){
+    void Awake(){
         anim = GetComponent<Animator>();
         audioSource = GetComponentInChildren<AudioSource>();
+        holder.sceneLoader.userLocation = user;
     }
 
     void Update(){
@@ -64,6 +69,26 @@ public class GuideController : MonoBehaviour
         PlayAudio(energyDefinition);
     }
 
+    public void StreetIntroduction(){
+        PlayAudio(streetIntroduction);
+    }
+
+    public void FruitsExample(){
+        PlayAudio(fruitsExample);
+    }
+
+    public void SignpostExample(){
+        PlayAudio(signpostExample);
+    }
+
+    public void BirdExample(){
+        PlayAudio(birdExample);
+    }
+
+    public void PotentialConclusion(){
+        PlayAudio(potentialConclusion);
+    }
+
     private void PlayAudio(AudioClip clip){
         audioSource.PlayOneShot(clip);
         anim.SetBool(Talking,true);
@@ -81,6 +106,10 @@ public class GuideController : MonoBehaviour
     public void DoneTalking(){
         anim.SetBool(Talking, false);
         speechBubble.SetActive(false);
+    }
+
+    public void ForceIdle(){
+        anim.SetBool(Idle, true);
     }
 
     public void TriggerWaveBegun(){

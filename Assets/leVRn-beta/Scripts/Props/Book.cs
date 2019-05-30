@@ -15,15 +15,15 @@ public class Book : Prop
 
     public void BookFalling(){
         AnimateBar(potentialEnergy, 0, 0.53f);
-        AnimateBar(velocity, 10, 0.53f);
+       // AnimateBar(velocity, 10, 0.53f);
     }
 
     public void BookSliding(){
-        AnimateBar(velocity, 2, 0.15f);
+        //AnimateBar(velocity, 2, 0.15f);
     }
 
     public void BookOnGround(){
-        velocity.UpdateBar(0,maxVelocity);
+        //velocity.UpdateBar(0,maxVelocity);
     }
    
 }
