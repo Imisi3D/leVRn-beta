@@ -21,6 +21,9 @@ public class Storyteller : MonoBehaviour
             BeginIntroduction();
         else if (holder.phase == 1)
             IntroduceStreet();
+        else if (holder.phase == 2){
+            IntroduceKineticEnergy();
+        }
     }
 
     public void SetActive(GameObject element){
@@ -39,7 +42,7 @@ public class Storyteller : MonoBehaviour
         await new WaitUntil((() => !guide.audioSource.isPlaying));
         guide.DoneTalking();
         ui.ActivateScreen();
-        ui.DisplayOnScreen("Energy is the ability to do <size=300><color=lime>work</color></size>");
+        ui.DisplayOnScreen("Energy is the ability to do <size=300><color=black>work</color></size>");
         guide.GestureToScreen();
         await new WaitForSeconds(shortBreak);
         guide.DefineEnergy();
@@ -54,7 +57,7 @@ public class Storyteller : MonoBehaviour
         ui.ToggleWork();
         await new WaitForSeconds(longBreak);
         ui.ToggleWork();
-        ui.DisplayOnScreen("Potential energy is the energy stored by a body at <size=300><color=lime>rest</color></size>");
+        ui.DisplayOnScreen("Potential energy is the energy stored by a body at <size=300><color=black>rest</color></size>");
         guide.GestureToScreen();
         await new WaitForSeconds(shortBreak);
         guide.PotentialEnergy();
@@ -76,7 +79,7 @@ public class Storyteller : MonoBehaviour
         ui.ToggleRest();
         await new WaitForSeconds(shortBreak);
         guide.PotentialPosition();
-        ui.DisplayOnScreen("Potential energy is also the energy a body has because of its <size=300><color=lime>position</color></size>");
+        ui.DisplayOnScreen("Potential energy is also the energy a body has because of its <size=300><color=black>position</color></size>");
         await new WaitForSeconds(shortBreak);
         guide.GestureToScreen();
         PotentialBook();
@@ -152,6 +155,39 @@ public class Storyteller : MonoBehaviour
         holder.phase = 2;
         holder.sceneLoader.LoadSimulationScene();       
     }
+
+    async void IntroduceKineticEnergy(){
+        guide.ForceIdle();
+        ui.ToggleLearn();
+        ui.RemoveTitle();
+        await new WaitForSeconds(longBreak);
+        guide.KineticIntroduction();
+        ui.ActivateScreen();
+        ui.DisplayOnScreen("Kinetic Energy is the energy possessed by a <size=300><color=black>moving</color></size> body. ");
+        KineticExample();
+    }
+
+    async void KineticExample(){       
+        await new WaitUntil((() => !guide.audioSource.isPlaying));
+        ui.ToggleMoving();
+        guide.DoneTalking();
+        await new WaitForSeconds(longBreak);
+        ui.ToggleMoving();
+        guide.KineticExample();
+        holder.propController.ActivateBall();
+        KineticConclusion();
+    }
+
+    async void KineticConclusion(){
+        await new WaitUntil((() => !guide.audioSource.isPlaying));
+        guide.DoneTalking();
+        holder.propController.TurnOnGravity("Ball");
+        await new WaitForSeconds(shortBreak);
+        guide.KineticConclusion();
+        
+    }
+    
+    
     
     
     async void RemoveTitle(){

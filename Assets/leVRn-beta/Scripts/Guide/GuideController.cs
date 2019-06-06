@@ -22,6 +22,9 @@ public class GuideController : MonoBehaviour
     public AudioClip signpostExample;
     public AudioClip fruitsExample;
     public AudioClip potentialConclusion;
+    public AudioClip kineticIntroduction;
+    public AudioClip kineticExample;
+    public AudioClip kineticConclusion;
     
     private Animator anim;
     [NonSerialized]
@@ -87,6 +90,18 @@ public class GuideController : MonoBehaviour
 
     public void PotentialConclusion(){
         PlayAudio(potentialConclusion);
+    }
+
+    public void KineticIntroduction(){
+        PlayAudio(kineticIntroduction);
+    }
+
+    public void KineticExample(){
+        PlayAudio(kineticExample);
+    }
+
+    public void KineticConclusion(){
+        PlayAudio(kineticConclusion);
     }
 
     private void PlayAudio(AudioClip clip){

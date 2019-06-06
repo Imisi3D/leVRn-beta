@@ -13,11 +13,19 @@ public class PropController : ScriptableObject
         props["Book"].SetActive(true);
     }
 
+    public void ActivateBall(){
+        props["Ball"].SetActive(true);
+    }
+
     public void HighlightProp(string propTitle){
         props[propTitle].GetComponent<PropBase>().Highlight();
     }
 
     public void UnhighlightProp(string propTitle){
         props[propTitle].GetComponent<PropBase>().Unhighlight();
+    }
+
+    public void TurnOnGravity(string propTitle){
+        props[propTitle].GetComponent<Rigidbody>().useGravity = true;
     }
 }

@@ -9,6 +9,10 @@ public class UIController : MonoBehaviour
     private GameObject title;
     
     [SerializeField]
+    private GameObject learn;
+
+    
+    [SerializeField]
     private GameObject screen;
     
     [SerializeField]
@@ -19,6 +23,8 @@ public class UIController : MonoBehaviour
 
     [SerializeField] 
     private GameObject restHolder;
+
+    [SerializeField] private GameObject movingHolder;
     private static readonly int Vanish = Animator.StringToHash("Vanish");
     // Start is called before the first frame update
 
@@ -34,12 +40,20 @@ public class UIController : MonoBehaviour
         title.GetComponent<Animator>().SetTrigger(Vanish);
     }
 
+    public void ToggleLearn(){
+        learn.SetActive(!learn.activeSelf);
+    }
+
     public void ToggleWork(){
         workHolder.SetActive(!workHolder.activeSelf);
     }
     
     public void ToggleRest(){
         restHolder.SetActive(!restHolder.activeSelf);
+    }
+
+    public void ToggleMoving(){
+        movingHolder.SetActive(!movingHolder.activeSelf);
     }
 
     
