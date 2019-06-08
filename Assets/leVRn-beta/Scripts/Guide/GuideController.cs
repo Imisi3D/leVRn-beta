@@ -25,6 +25,10 @@ public class GuideController : MonoBehaviour
     public AudioClip kineticIntroduction;
     public AudioClip kineticExample;
     public AudioClip kineticConclusion;
+    public AudioClip previously;
+    public AudioClip busExample;
+    public AudioClip pedestrianExample;
+    public AudioClip flagExample;
     
     private Animator anim;
     [NonSerialized]
@@ -35,16 +39,53 @@ public class GuideController : MonoBehaviour
     private static readonly int ToScreen = Animator.StringToHash("GestureToScreen");
     private static readonly int Talking = Animator.StringToHash("Talking");
     private static readonly int Idle = Animator.StringToHash("Idle");
+    private static readonly int Run = Animator.StringToHash("Run");
+    private static readonly int Hit = Animator.StringToHash("Hit");
+
+    [NonSerialized]
+    public bool changingLocation;
 
     // Start is called before the first frame update
     void Awake(){
         anim = GetComponent<Animator>();
         audioSource = GetComponentInChildren<AudioSource>();
         holder.sceneLoader.userLocation = user;
+        LookAtUser();
     }
 
     void Update(){
-        transform.LookAt(mainCamera,Vector3.up);
+        
+    }
+
+    public void ChangeLocation(){
+        changingLocation = true;
+        anim.SetBool(Idle, false);
+        anim.SetTrigger(Run);
+        iTween.MoveTo(transform.parent.gameObject,
+            iTween.Hash("position", holder.propController.guideLocation, "speed", 2, "looktarget",
+                holder.propController.guideLocation, "oncomplete", "CompleteLocationChange", "oncompletetarget", gameObject, "easetype",
+                iTween.EaseType.linear));
+
+    }
+
+    public void CompleteLocationChange(){
+        anim.SetBool(Idle, true);
+        LookAtUser();
+        changingLocation = false;
+    }
+
+    void LookAtUser(){
+        if (transform.parent != null){
+            transform.parent.LookAt(mainCamera,Vector3.up);
+        }
+        else{
+            transform.LookAt(mainCamera,Vector3.up);
+        }
+        
+    }
+
+    public void HitBall(){
+        anim.SetTrigger(Hit);
     }
 
     // Update is called once per frame
@@ -104,6 +145,22 @@ public class GuideController : MonoBehaviour
         PlayAudio(kineticConclusion);
     }
 
+    public void Previously(){
+        PlayAudio(previously);
+    }
+
+    public void BusExample(){
+        PlayAudio(busExample);
+    }
+
+    public void FlagExample(){
+        PlayAudio(flagExample);
+    }
+
+    public void PedestrianExample(){
+        PlayAudio(pedestrianExample);
+    }
+
     private void PlayAudio(AudioClip clip){
         audioSource.PlayOneShot(clip);
         anim.SetBool(Talking,true);
@@ -125,6 +182,13 @@ public class GuideController : MonoBehaviour
 
     public void ForceIdle(){
         anim.SetBool(Idle, true);
+    }
+
+    public void ChangeAudioGain(int volume){
+        GetComponentInChildren<ResonanceAudioSource>().gainDb = volume;
+    }
+    public void TriggerHitEnded(){
+        holder.animationTriggers.HitEnded = true;
     }
 
     public void TriggerWaveBegun(){

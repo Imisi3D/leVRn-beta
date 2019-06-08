@@ -418,6 +418,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 325.19763, y: 275.46484, z: 192.43437}
   m_Center: {x: -1.2308197, y: 17127.709, z: 972.4351}
+--- !u!114 &6589569022712274763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5859354994426301528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbf3575480402db40813e763382412fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: 0
+  eraseRenderer: 1
+  originalLayer: 0
+  originalMaterials: []
 --- !u!114 &1321256611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -448,6 +464,10 @@ MonoBehaviour:
   kineticIntroduction: {fileID: 8300000, guid: 706fc26ee02877b41adb6df8c75c03b2, type: 3}
   kineticExample: {fileID: 8300000, guid: b1fc032e82ee3b04c81ff3719ea39078, type: 3}
   kineticConclusion: {fileID: 8300000, guid: 2b7bc7c0025935b4b9c91c93c1a031f0, type: 3}
+  previously: {fileID: 0}
+  busExample: {fileID: 0}
+  pedestrianExample: {fileID: 0}
+  flagExample: {fileID: 0}
 --- !u!1001 &5860667852981711556
 PrefabInstance:
   m_ObjectHideFlags: 0

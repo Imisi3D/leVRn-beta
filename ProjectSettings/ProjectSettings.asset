@@ -161,7 +161,7 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.Imisi3D.leVRn_beta
   buildNumber: {}
-  AndroidBundleVersionCode: 6
+  AndroidBundleVersionCode: 8
   AndroidMinSdkVersion: 23
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 0

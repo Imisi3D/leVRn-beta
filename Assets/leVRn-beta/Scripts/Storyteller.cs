@@ -24,6 +24,9 @@ public class Storyteller : MonoBehaviour
         else if (holder.phase == 2){
             IntroduceKineticEnergy();
         }
+        else if (holder.phase == 3){
+            IntroduceKineticStreet();
+        }
     }
 
     public void SetActive(GameObject element){
@@ -123,6 +126,7 @@ public class Storyteller : MonoBehaviour
         await new WaitUntil((() => !guide.audioSource.isPlaying));
         guide.DoneTalking();
         holder.propController.UnhighlightProp("Signpost");
+        holder.propController.PlayDefaultAudio("Bird");
         await new WaitForSeconds(shortBreak);
         guide.BirdExample();
         holder.propController.HighlightProp("Bird");
@@ -181,10 +185,61 @@ public class Storyteller : MonoBehaviour
     async void KineticConclusion(){
         await new WaitUntil((() => !guide.audioSource.isPlaying));
         guide.DoneTalking();
-        holder.propController.TurnOnGravity("Ball");
+        guide.HitBall();
+        PlayBallHit();
         await new WaitForSeconds(shortBreak);
         guide.KineticConclusion();
-        
+        GoToKinetic();
+    }
+
+    async void GoToKinetic(){
+        await new WaitUntil((() => !guide.audioSource.isPlaying));
+        guide.DoneTalking();
+        await new WaitForSeconds(shortBreak);
+        holder.phase = 3;
+        holder.sceneLoader.LoadKineticStreetScene();
+    }
+
+    async void IntroduceKineticStreet(){
+        guide.ForceIdle();
+        await new WaitForSeconds(longBreak);
+        guide.Previously();
+        BusExample();
+    }
+
+    async void BusExample(){
+        await new WaitUntil((() => !guide.audioSource.isPlaying));
+        guide.DoneTalking();
+        await new WaitForSeconds(shortBreak);
+        guide.BusExample();
+        holder.propController.HighlightProp("Bus");
+        holder.propController.DefaultAnimation("Bus");
+        holder.propController.PlayDefaultAudio("Bus");
+        PedestrianExample();
+    }
+
+    async void PedestrianExample(){
+        await new WaitUntil((() => !guide.audioSource.isPlaying));
+        guide.DoneTalking();
+        await new WaitForSeconds(shortBreak + 0.5f);
+        guide.PedestrianExample();
+        holder.propController.UnhighlightProp("Bus");
+        holder.propController.HighlightProp("Pedestrian");
+        holder.propController.DefaultAnimation("Pedestrian");
+        FlagExample();
+    }
+
+    async void FlagExample(){
+        await new WaitUntil((() => !guide.audioSource.isPlaying));
+        guide.DoneTalking();
+        holder.propController.SetGuideLocation("Flag");
+        guide.ChangeLocation();
+        await new WaitUntil((() => !guide.changingLocation));
+        await new WaitForSeconds(shortBreak);
+        guide.ChangeAudioGain(13);
+        guide.FlagExample();
+        holder.propController.UnhighlightProp("Pedestrian");
+        holder.propController.HighlightProp("Flag");
     }
     
     
@@ -193,6 +248,12 @@ public class Storyteller : MonoBehaviour
     async void RemoveTitle(){
         await new WaitForSeconds(4f);
         ui.RemoveTitle();
+    }
+
+    async void PlayBallHit(){
+        await new WaitUntil((() => holder.animationTriggers.HitEnded));
+        holder.animationTriggers.HitEnded = false;
+        holder.propController.PlayDefaultAudio("Ball");
     }
 
     private void OnApplicationQuit(){

@@ -7,10 +7,15 @@ public class PropBase : MonoBehaviour
 {
     public ScriptableObjectsHolder holder;
     public string propTitle;
+    public Transform guideLocation;
     private Outline[] outline;
     
     void Awake(){
         holder.propController.props[propTitle] = gameObject;
+        
+    }
+
+    private void Start(){
         outline = GetComponentsInChildren<Outline>();
         Unhighlight();
     }
@@ -26,4 +31,5 @@ public class PropBase : MonoBehaviour
             outline[i].enabled = true;
         }
     }
+    
 }

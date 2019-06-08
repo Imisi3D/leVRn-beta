@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Outline = cakeslice.Outline;
@@ -7,6 +8,9 @@ using Outline = cakeslice.Outline;
 public class PropController : ScriptableObject
 {
     public Dictionary<string, GameObject> props = new Dictionary<string, GameObject>();
+    private static readonly int Default = Animator.StringToHash("Default");
+
+    [NonSerialized] public Transform guideLocation;
 
     public void ActivateBookExample(){
         props["Table"].SetActive(true);
@@ -27,5 +31,17 @@ public class PropController : ScriptableObject
 
     public void TurnOnGravity(string propTitle){
         props[propTitle].GetComponent<Rigidbody>().useGravity = true;
+    }
+
+    public void DefaultAnimation(string propTitle){
+        props[propTitle].GetComponentInChildren<Animator>().SetTrigger(Default);
+    }
+
+    public void PlayDefaultAudio(string propTitle){
+        props[propTitle].GetComponentInChildren<AudioSource>().Play();
+    }
+
+    public void SetGuideLocation(string propTitle){
+        guideLocation = props[propTitle].GetComponent<PropBase>().guideLocation;
     }
 }
