@@ -27,6 +27,9 @@ public class Storyteller : MonoBehaviour
         else if (holder.phase == 3){
             IntroduceKineticStreet();
         }
+        else if (holder.phase == 4){
+            IntroduceTest();
+        }
     }
 
     public void SetActive(GameObject element){
@@ -236,13 +239,156 @@ public class Storyteller : MonoBehaviour
         guide.ChangeLocation();
         await new WaitUntil((() => !guide.changingLocation));
         await new WaitForSeconds(shortBreak);
-        guide.ChangeAudioGain(13);
         guide.FlagExample();
         holder.propController.UnhighlightProp("Pedestrian");
         holder.propController.HighlightProp("Flag");
+        GoToTest();
     }
-    
-    
+
+    async void GoToTest(){
+        await new WaitUntil((() => !guide.audioSource.isPlaying));
+        guide.DoneTalking();
+        await new WaitForSeconds(shortBreak);
+        holder.phase = 4;
+        holder.sceneLoader.LoadStreetTestScene();
+    }
+
+    async void IntroduceTest(){
+        guide.ForceIdle();
+        await new WaitForSeconds(longBreak);
+        guide.TestIntro(); 
+        FruitQuestion();
+    }
+
+    async void FruitQuestion(){
+        await new WaitUntil((() => !guide.audioSource.isPlaying));
+        guide.DoneTalking();
+        holder.propController.SetGuideLocation("Tree");
+        guide.ChangeLocation();
+        await new WaitUntil((() => !guide.changingLocation));
+        await new WaitForSeconds(shortBreak);
+        guide.FruitQuestion();
+        holder.propController.HighlightProp("Tree");
+        DisplayFruitQuestion();
+    }
+
+    async void DisplayFruitQuestion(){
+        await new WaitUntil((() => !guide.audioSource.isPlaying));
+        guide.DoneTalking();
+        holder.propController.DisplayQuestion("Tree");
+        AnswerFruitQuestion();
+    }
+
+    async void AnswerFruitQuestion(){
+        await new WaitUntil((() => holder.propController.answer != PropController.Answer.Unanswered));
+        PropController.Answer answer = holder.propController.answer;
+        if (answer == PropController.Answer.Right){
+            guide.FruitRight();
+        }
+        else{
+            guide.FruitWrong();
+        }
+
+        holder.propController.answer = PropController.Answer.Unanswered;
+        BikeQuestion();
+    }
+
+    async void BikeQuestion(){
+        await new WaitUntil((() => !guide.audioSource.isPlaying));
+        guide.DoneTalking();
+        holder.propController.RemoveQuestion("Tree");
+        holder.propController.UnhighlightProp("Tree");
+        await new WaitForSeconds(shortBreak);
+        guide.BikeQuestion();
+        holder.propController.HighlightProp("Bike");
+        holder.propController.PlayDefaultAudio("Bike");
+        holder.propController.DefaultAnimation("Bike");
+        DisplayBikeQuestion();
+    }
+
+    async void DisplayBikeQuestion(){
+        await new WaitUntil((() => !guide.audioSource.isPlaying));
+        guide.DoneTalking();
+        holder.propController.DisplayQuestion("Bike");
+        AnswerBikeQuestion();
+    }
+
+    async void AnswerBikeQuestion(){
+        await new WaitUntil((() => holder.propController.answer != PropController.Answer.Unanswered));
+        if (holder.propController.answer == PropController.Answer.Right){
+            guide.BikeRight();
+        }
+        else{
+            guide.BikeWrong();
+        }
+
+        holder.propController.answer = PropController.Answer.Unanswered;
+        TankQuestion();
+    }
+
+    async void TankQuestion(){
+        await new WaitUntil((() => !guide.audioSource.isPlaying));
+        guide.DoneTalking();
+        holder.propController.RemoveQuestion("Bike");
+        holder.propController.UnhighlightProp("Bike");
+        holder.propController.SetGuideLocation("Box");
+        guide.ChangeLocation();
+        await new WaitUntil((() => !guide.changingLocation));
+        await new WaitForSeconds(shortBreak);
+        guide.TankQuestion();
+        holder.propController.HighlightProp("Tank");
+        DisplayTankQuestion();
+    }
+
+    async void DisplayTankQuestion(){
+        await new WaitUntil((() => !guide.audioSource.isPlaying));
+        guide.DoneTalking();
+        holder.propController.DisplayQuestion("Tank");
+        AnswerTankQuestion();
+    }
+
+    async void AnswerTankQuestion(){
+        await new WaitUntil((() => holder.propController.answer != PropController.Answer.Unanswered));
+        if (holder.propController.answer == PropController.Answer.Right){
+            guide.TankRight();
+        }
+        else{
+            guide.TankWrong();
+        }
+
+        holder.propController.answer = PropController.Answer.Unanswered;
+        BoxQuestion();
+    }
+
+    async void BoxQuestion(){
+        await new WaitUntil((() => !guide.audioSource.isPlaying));
+        guide.DoneTalking();
+        holder.propController.RemoveQuestion("Tank");
+        holder.propController.UnhighlightProp("Tank");
+        await new WaitForSeconds(shortBreak);
+        guide.BoxQuestion();
+        holder.propController.HighlightProp("Box");
+        DisplayBoxQuestion();
+    }
+
+    async void DisplayBoxQuestion(){
+        await new WaitUntil((() => !guide.audioSource.isPlaying));
+        guide.DoneTalking();
+        holder.propController.DisplayQuestion("Box");
+        AnswerBoxQuestion();
+    }
+
+    async void AnswerBoxQuestion(){
+        await new WaitUntil((() => holder.propController.answer != PropController.Answer.Unanswered));
+        if (holder.propController.answer == PropController.Answer.Right){
+            guide.BoxRight();
+        }
+        else{
+            guide.BoxWrong();
+        }
+
+        holder.propController.answer = PropController.Answer.Unanswered;
+    }
     
     
     async void RemoveTitle(){

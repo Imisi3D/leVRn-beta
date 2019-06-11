@@ -29,6 +29,20 @@ public class GuideController : MonoBehaviour
     public AudioClip busExample;
     public AudioClip pedestrianExample;
     public AudioClip flagExample;
+    public AudioClip testIntro;
+    public AudioClip fruitQuestion;
+    public AudioClip fruitRight;
+    public AudioClip fruitWrong;
+    public AudioClip boxQuestion;
+    public AudioClip boxRight;
+    public AudioClip boxWrong;
+    public AudioClip bikeQuestion;
+    public AudioClip bikeRight;
+    public AudioClip bikeWrong;
+    public AudioClip tankQuestion;
+    public AudioClip tankRight;
+    public AudioClip tankWrong;
+    
     
     private Animator anim;
     [NonSerialized]
@@ -61,10 +75,13 @@ public class GuideController : MonoBehaviour
         changingLocation = true;
         anim.SetBool(Idle, false);
         anim.SetTrigger(Run);
+        Transform guideLocation = holder.propController.guideLocation;
         iTween.MoveTo(transform.parent.gameObject,
-            iTween.Hash("position", holder.propController.guideLocation, "speed", 2, "looktarget",
-                holder.propController.guideLocation, "oncomplete", "CompleteLocationChange", "oncompletetarget", gameObject, "easetype",
+            iTween.Hash("position", guideLocation, "speed", 2, "looktarget",
+                guideLocation, "oncomplete", "CompleteLocationChange", "oncompletetarget", gameObject, "easetype",
                 iTween.EaseType.linear));
+        float distance = Vector3.Distance(guideLocation.position, transform.position);
+        ChangeAudioGain((int)distance/3);
 
     }
 
@@ -88,7 +105,7 @@ public class GuideController : MonoBehaviour
         anim.SetTrigger(Hit);
     }
 
-    // Update is called once per frame
+    #region Voice Overs
     public void PotentialEnergy(){
         PlayAudio(potentialEnergy);
     }
@@ -161,6 +178,60 @@ public class GuideController : MonoBehaviour
         PlayAudio(pedestrianExample);
     }
 
+    public void TestIntro(){
+        PlayAudio(testIntro);
+    }
+
+    public void FruitQuestion(){
+        PlayAudio(fruitQuestion);
+    }
+
+    public void FruitRight(){
+        PlayAudio(fruitRight);
+    }
+
+    public void FruitWrong(){
+        PlayAudio(fruitWrong);
+    }
+
+    public void BoxQuestion(){
+        PlayAudio(boxQuestion);
+    }
+
+    public void BoxRight(){
+        PlayAudio(boxRight);
+    }
+
+    public void BoxWrong(){
+        PlayAudio(boxWrong);
+    }
+
+    public void TankQuestion(){
+        PlayAudio(tankQuestion);
+    }
+
+    public void TankRight(){
+        PlayAudio(tankRight);
+    }
+
+    public void TankWrong(){
+        PlayAudio(tankWrong);
+    }
+
+    public void BikeQuestion(){
+        PlayAudio(bikeQuestion);
+    }
+
+    public void BikeRight(){
+        PlayAudio(bikeRight);
+    }
+
+    public void BikeWrong(){
+        PlayAudio(bikeWrong);
+    }
+    
+    #endregion
+
     private void PlayAudio(AudioClip clip){
         audioSource.PlayOneShot(clip);
         anim.SetBool(Talking,true);
@@ -185,7 +256,7 @@ public class GuideController : MonoBehaviour
     }
 
     public void ChangeAudioGain(int volume){
-        GetComponentInChildren<ResonanceAudioSource>().gainDb = volume;
+        GetComponentInChildren<ResonanceAudioSource>().gainDb = Mathf.Max(volume, 24);
     }
     public void TriggerHitEnded(){
         holder.animationTriggers.HitEnded = true;

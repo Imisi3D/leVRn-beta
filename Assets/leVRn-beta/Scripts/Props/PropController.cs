@@ -10,7 +10,15 @@ public class PropController : ScriptableObject
     public Dictionary<string, GameObject> props = new Dictionary<string, GameObject>();
     private static readonly int Default = Animator.StringToHash("Default");
 
+    public enum Answer
+    {
+        Right,
+        Wrong,
+        Unanswered
+    };
     [NonSerialized] public Transform guideLocation;
+
+    [NonSerialized] public Answer answer = Answer.Unanswered;
 
     public void ActivateBookExample(){
         props["Table"].SetActive(true);
@@ -44,4 +52,14 @@ public class PropController : ScriptableObject
     public void SetGuideLocation(string propTitle){
         guideLocation = props[propTitle].GetComponent<PropBase>().guideLocation;
     }
+    
+    public void DisplayQuestion(string propTitle){
+        props[propTitle].GetComponent<PropBase>().answer.SetActive(true);
+    }
+    
+    public void RemoveQuestion(string propTitle){
+        props[propTitle].GetComponent<PropBase>().answer.SetActive(false);
+    }
+    
+    
 }
