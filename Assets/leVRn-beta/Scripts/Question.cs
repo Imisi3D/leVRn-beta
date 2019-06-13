@@ -9,6 +9,7 @@ public class Question : MonoBehaviour
     [SerializeField]
     private Answer answer;
 
+    public string name;
     public Color right, wrong;
 
     public GameObject correct;
@@ -16,10 +17,13 @@ public class Question : MonoBehaviour
     public Image optionA, optionB;
     
     enum Answer{OptionA, OptionB}
+
+    private float initialTime;
     // Start is called before the first frame update
     void Start()
     {
         LookAtUser();
+        initialTime = Time.time;
     }
 
     // Update is called once per frame
@@ -56,6 +60,7 @@ public class Question : MonoBehaviour
     private void RightAnswer(){
         correct.SetActive(true);
         holder.propController.answer = PropController.Answer.Right;
+        holder.quizTracker.quizzes.Add(new QuizTracker.QuizDetails(name,Time.time - initialTime, QuizTracker.QuizDetails.Status.PASS));
     }
 
     private void WrongAnswer(){
@@ -69,5 +74,7 @@ public class Question : MonoBehaviour
         }
 
         holder.propController.answer = PropController.Answer.Wrong;
+        holder.quizTracker.quizzes.Add(new QuizTracker.QuizDetails(name,Time.time - initialTime, QuizTracker.QuizDetails.Status.FAILED));
+
     }
 }

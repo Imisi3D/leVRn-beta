@@ -182,14 +182,14 @@ public class Storyteller : MonoBehaviour
         ui.ToggleMoving();
         guide.KineticExample();
         holder.propController.ActivateBall();
+                
+        PlayBallHit();
         KineticConclusion();
     }
 
     async void KineticConclusion(){
         await new WaitUntil((() => !guide.audioSource.isPlaying));
         guide.DoneTalking();
-        guide.HitBall();
-        PlayBallHit();
         await new WaitForSeconds(shortBreak);
         guide.KineticConclusion();
         GoToKinetic();
@@ -235,12 +235,13 @@ public class Storyteller : MonoBehaviour
     async void FlagExample(){
         await new WaitUntil((() => !guide.audioSource.isPlaying));
         guide.DoneTalking();
+        await new WaitForSeconds(longBreak + 2);
+        holder.propController.UnhighlightProp("Pedestrian");
         holder.propController.SetGuideLocation("Flag");
         guide.ChangeLocation();
         await new WaitUntil((() => !guide.changingLocation));
         await new WaitForSeconds(shortBreak);
-        guide.FlagExample();
-        holder.propController.UnhighlightProp("Pedestrian");
+        guide.FlagExample();      
         holder.propController.HighlightProp("Flag");
         GoToTest();
     }
@@ -388,6 +389,9 @@ public class Storyteller : MonoBehaviour
         }
 
         holder.propController.answer = PropController.Answer.Unanswered;
+        await new WaitForSeconds(shortBreak);
+        Debug.Log("Something happen rn");
+        Instantiate(holder.quizTracker.experienceStats);
     }
     
     
@@ -397,6 +401,8 @@ public class Storyteller : MonoBehaviour
     }
 
     async void PlayBallHit(){
+        await new WaitForSeconds(2);
+        guide.HitBall();
         await new WaitUntil((() => holder.animationTriggers.HitEnded));
         holder.animationTriggers.HitEnded = false;
         holder.propController.PlayDefaultAudio("Ball");

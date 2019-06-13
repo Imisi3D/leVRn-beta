@@ -45,6 +45,7 @@ public class GuideController : MonoBehaviour
     
     
     private Animator anim;
+    private float distance;
     [NonSerialized]
     public AudioSource audioSource;
 
@@ -67,8 +68,8 @@ public class GuideController : MonoBehaviour
         LookAtUser();
     }
 
-    void Update(){
-        
+    void Start(){
+        ChangeAudioGain();
     }
 
     public void ChangeLocation(){
@@ -80,8 +81,8 @@ public class GuideController : MonoBehaviour
             iTween.Hash("position", guideLocation, "speed", 2, "looktarget",
                 guideLocation, "oncomplete", "CompleteLocationChange", "oncompletetarget", gameObject, "easetype",
                 iTween.EaseType.linear));
-        float distance = Vector3.Distance(guideLocation.position, transform.position);
-        ChangeAudioGain((int)distance/3);
+
+
 
     }
 
@@ -89,6 +90,7 @@ public class GuideController : MonoBehaviour
         anim.SetBool(Idle, true);
         LookAtUser();
         changingLocation = false;
+        ChangeAudioGain();
     }
 
     void LookAtUser(){
@@ -255,8 +257,9 @@ public class GuideController : MonoBehaviour
         anim.SetBool(Idle, true);
     }
 
-    public void ChangeAudioGain(int volume){
-        GetComponentInChildren<ResonanceAudioSource>().gainDb = Mathf.Max(volume, 24);
+    private void ChangeAudioGain(){
+        distance = Vector3.Distance(user.transform.position, transform.position);
+        GetComponentInChildren<ResonanceAudioSource>().gainDb = Mathf.Min(distance*2.5f, 24);
     }
     public void TriggerHitEnded(){
         holder.animationTriggers.HitEnded = true;

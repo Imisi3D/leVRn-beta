@@ -8,6 +8,7 @@ public class ScriptableObjectsHolder : ScriptableObject
     public AnimationTriggers animationTriggers;
     public SceneLoader sceneLoader;
     public PropController propController;
+    public QuizTracker quizTracker;
 
     public int phase = 0;
 }

@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-[CreateAssetMenu(fileName = "SceneLoader")]
+[CreateAssetMenu(fileName = "SceneLoader", menuName = "Misc/SceneLoader")]
 public class SceneLoader : ScriptableObject
 {
     public int mainScene;
