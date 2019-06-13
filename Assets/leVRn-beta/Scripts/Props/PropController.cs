@@ -30,11 +30,25 @@ public class PropController : ScriptableObject
     }
 
     public void HighlightProp(string propTitle){
-        props[propTitle].GetComponent<PropBase>().Highlight();
+        props[propTitle].GetComponent<PropBase>().Highlight();     
+        DisplayArrow(propTitle);
     }
 
     public void UnhighlightProp(string propTitle){
         props[propTitle].GetComponent<PropBase>().Unhighlight();
+        RemoveArrow(propTitle);
+    }
+
+    public void DisplayArrow(string propTitle){
+        GameObject arrow = props[propTitle].GetComponent<PropBase>().arrow;
+        if (arrow != null)
+            arrow.SetActive(true);
+    }
+    
+    void RemoveArrow(string propTitle){
+        GameObject arrow = props[propTitle].GetComponent<PropBase>().arrow;
+        if (arrow != null)
+            arrow.SetActive(false);
     }
 
     public void TurnOnGravity(string propTitle){

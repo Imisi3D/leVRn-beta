@@ -8,6 +8,7 @@ public class PropBase : MonoBehaviour
     public ScriptableObjectsHolder holder;
     public string propTitle;
     public GameObject answer;
+    public GameObject arrow;
     public Transform guideLocation;
     private Outline[] outline;
     
