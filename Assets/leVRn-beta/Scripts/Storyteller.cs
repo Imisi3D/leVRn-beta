@@ -224,7 +224,7 @@ public class Storyteller : MonoBehaviour
     async void PedestrianExample(){
         await new WaitUntil((() => !guide.audioSource.isPlaying));
         guide.DoneTalking();
-        await new WaitForSeconds(shortBreak + 0.5f);
+        await new WaitForSeconds(longBreak + 2);
         guide.PedestrianExample();
         holder.propController.UnhighlightProp("Bus");
         holder.propController.HighlightProp("Pedestrian");
@@ -235,7 +235,7 @@ public class Storyteller : MonoBehaviour
     async void FlagExample(){
         await new WaitUntil((() => !guide.audioSource.isPlaying));
         guide.DoneTalking();
-        await new WaitForSeconds(longBreak + 2);
+        await new WaitForSeconds(longBreak + 3);
         holder.propController.UnhighlightProp("Pedestrian");
         holder.propController.SetGuideLocation("Flag");
         guide.ChangeLocation();
