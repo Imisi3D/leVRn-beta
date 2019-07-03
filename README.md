@@ -21,7 +21,7 @@ To keep the git repository small in size, a lot of the large assets used are not
 - Build the .apk, load it into an Oculus Go and test the experience to ensure everything works fine.
 
 ## Contributing
-Please read [CONTRIBUTING.md]() for details on how best to contribute to this project.
+Please read [CONTRIBUTING.md](https://github.com/Imisi3D/leVRn-beta/blob/master/Contributing.md) for details on how best to contribute to this project.
 
 ## Authors
 - **Tade Ajiboye** - [Github](https://github.com/Gazuntype/)
