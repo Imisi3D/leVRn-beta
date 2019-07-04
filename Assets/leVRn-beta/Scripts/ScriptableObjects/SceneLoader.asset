@@ -16,5 +16,6 @@ MonoBehaviour:
   streetScene: 1
   kineticStreet: 2
   streetTest: 3
+  field: 4
   loadingSphere: {fileID: 5541169292367334228, guid: 4190e056dfd7f014cb2dc3a212611411,
     type: 3}

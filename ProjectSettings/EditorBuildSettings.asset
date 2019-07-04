@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/leVRn-beta/Scenes/streetTest.unity
     guid: f62b7ee5923cabd4fa8eabf5d151aa70
+  - enabled: 1
+    path: Assets/leVRn-beta/Scenes/playground.unity
+    guid: cf873fe9e807b8940a5808d4d7f06243
   m_configObjects: {}
