@@ -36,6 +36,8 @@ public class Storyteller : MonoBehaviour
         element.SetActive(!element.activeSelf);
     }
 
+    #region PotentialDefinition
+
     async void BeginIntroduction(){
         await new WaitUntil((() => holder.animationTriggers.WaveBegun));
         holder.animationTriggers.WaveBegun = false;
@@ -108,7 +110,10 @@ public class Storyteller : MonoBehaviour
         holder.phase = 1;
         holder.sceneLoader.LoadStreetScene();
     }
+        
+    #endregion
 
+    #region Potential Examples
     async void IntroduceStreet(){
         guide.ForceIdle();
         await new WaitForSeconds(longBreak);
@@ -162,6 +167,11 @@ public class Storyteller : MonoBehaviour
         holder.phase = 2;
         holder.sceneLoader.LoadSimulationScene();       
     }
+    
+    
+    #endregion
+    
+    #region Kinetic Definition
 
     async void IntroduceKineticEnergy(){
         guide.ForceIdle();
@@ -202,6 +212,11 @@ public class Storyteller : MonoBehaviour
         holder.phase = 3;
         holder.sceneLoader.LoadKineticStreetScene();
     }
+    
+    
+    #endregion
+    
+    #region Kinetic Examples
 
     async void IntroduceKineticStreet(){
         guide.ForceIdle();
@@ -253,6 +268,11 @@ public class Storyteller : MonoBehaviour
         holder.phase = 4;
         holder.sceneLoader.LoadStreetTestScene();
     }
+    
+    
+    #endregion
+    
+    #region Quiz
 
     async void IntroduceTest(){
         guide.ForceIdle();
@@ -391,8 +411,11 @@ public class Storyteller : MonoBehaviour
         holder.propController.answer = PropController.Answer.Unanswered;
         await new WaitForSeconds(shortBreak);
         Debug.Log("Something happen rn");
-        Instantiate(holder.quizTracker.experienceStats);
+        //Instantiate(holder.quizTracker.experienceStats);
     }
+    
+    
+    #endregion
     
     
     async void RemoveTitle(){

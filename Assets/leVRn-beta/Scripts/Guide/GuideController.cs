@@ -10,25 +10,33 @@ public class GuideController : MonoBehaviour
 
     public GameObject speechBubble;
     
-    [Header("Voice Overs")] 
+    [Header("Potential Definition Voice Overs")]
     public AudioClip introduction;
     public AudioClip energyDefinition;
     public AudioClip potentialEnergy;
     public AudioClip potentialContinue;
     public AudioClip potentialPosition;
     public AudioClip potentialBook;
+    
+    [Header("Potential Examples Voice Overs")]
     public AudioClip streetIntroduction;
     public AudioClip birdExample;
     public AudioClip signpostExample;
     public AudioClip fruitsExample;
     public AudioClip potentialConclusion;
+    
+    [Header("Kinetic Definition Voice Overs")]
     public AudioClip kineticIntroduction;
     public AudioClip kineticExample;
     public AudioClip kineticConclusion;
+    
+    [Header("Kinetic Examples Voice Overs")]
     public AudioClip previously;
     public AudioClip busExample;
     public AudioClip pedestrianExample;
     public AudioClip flagExample;
+    
+    [Header("Quiz Voice Overs")]
     public AudioClip testIntro;
     public AudioClip fruitQuestion;
     public AudioClip fruitRight;
@@ -42,6 +50,16 @@ public class GuideController : MonoBehaviour
     public AudioClip tankQuestion;
     public AudioClip tankRight;
     public AudioClip tankWrong;
+    public AudioClip quizConclusion;
+
+    [Header("Playground Voice Overs")]
+    public AudioClip ballSlide;
+    public AudioClip guideSlide;
+    public AudioClip rockMountain;
+    public AudioClip rockConclude;
+    public AudioClip fruitPluck;
+    public AudioClip stickPluck;
+    public AudioClip playgroundConclusion;
     
     
     private Animator anim;
@@ -79,7 +97,7 @@ public class GuideController : MonoBehaviour
         Transform guideLocation = holder.propController.guideLocation;
         iTween.MoveTo(transform.parent.gameObject,
             iTween.Hash("position", guideLocation, "speed", 2, "looktarget",
-                guideLocation, "oncomplete", "CompleteLocationChange", "oncompletetarget", gameObject, "easetype",
+                guideLocation, "oncomplete", nameof(CompleteLocationChange), "oncompletetarget", gameObject, "easetype",
                 iTween.EaseType.linear));
 
 
@@ -107,7 +125,8 @@ public class GuideController : MonoBehaviour
         anim.SetTrigger(Hit);
     }
 
-    #region Voice Overs
+    #region Potential Definition
+    
     public void PotentialEnergy(){
         PlayAudio(potentialEnergy);
     }
@@ -123,6 +142,10 @@ public class GuideController : MonoBehaviour
     public void PotentialBook(){
         PlayAudio(potentialBook);
     }
+    
+    #endregion
+
+    #region Potential Examples
     
     public void Introduction(){
         PlayAudio(introduction);
@@ -151,6 +174,10 @@ public class GuideController : MonoBehaviour
     public void PotentialConclusion(){
         PlayAudio(potentialConclusion);
     }
+    
+    #endregion
+
+    #region Kinetic Definition
 
     public void KineticIntroduction(){
         PlayAudio(kineticIntroduction);
@@ -163,6 +190,10 @@ public class GuideController : MonoBehaviour
     public void KineticConclusion(){
         PlayAudio(kineticConclusion);
     }
+    
+    #endregion
+
+    #region Kinetic Examples
 
     public void Previously(){
         PlayAudio(previously);
@@ -179,6 +210,10 @@ public class GuideController : MonoBehaviour
     public void PedestrianExample(){
         PlayAudio(pedestrianExample);
     }
+    
+    #endregion
+
+    #region Quiz
 
     public void TestIntro(){
         PlayAudio(testIntro);
@@ -231,7 +266,43 @@ public class GuideController : MonoBehaviour
     public void BikeWrong(){
         PlayAudio(bikeWrong);
     }
+
+    public void QuizConclusion(){
+        PlayAudio(quizConclusion);
+    }
     
+    #endregion
+
+    #region Playground
+
+    public void BallSlide(){
+        PlayAudio(ballSlide);
+    }
+
+    public void GuideSlide(){
+        PlayAudio(guideSlide);
+    }
+
+    public void RockMountain(){
+        PlayAudio(rockMountain);
+    }
+
+    public void RockConclude(){
+        PlayAudio(rockConclude);
+    }
+
+    public void FruitPluck(){
+        PlayAudio(fruitPluck);
+    }
+
+    public void StickPluck(){
+        PlayAudio(stickPluck);
+    }
+
+    public void PlaygroundConclusion(){
+        PlayAudio(playgroundConclusion);
+    }
+
     #endregion
 
     private void PlayAudio(AudioClip clip){
