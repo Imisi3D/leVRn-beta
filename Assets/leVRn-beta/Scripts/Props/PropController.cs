@@ -55,6 +55,9 @@ public class PropController : ScriptableObject
         props[propTitle].GetComponent<Rigidbody>().useGravity = true;
     }
 
+    public void TurnOffKinematic(string propTitle){
+        props[propTitle].GetComponent<Rigidbody>().isKinematic = false;
+    }
     public void DefaultAnimation(string propTitle){
         props[propTitle].GetComponentInChildren<Animator>().SetTrigger(Default);
     }

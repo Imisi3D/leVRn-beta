@@ -10,6 +10,7 @@ public class SceneLoader : ScriptableObject
     public int streetScene;
     public int kineticStreet;
     public int streetTest;
+    public int field;
     public GameObject loadingSphere;
 
     [NonSerialized] public Transform userLocation;
@@ -35,6 +36,12 @@ public class SceneLoader : ScriptableObject
     public async void LoadStreetTestScene(){
         Instantiate(loadingSphere, userLocation);
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(streetTest, LoadSceneMode.Single);
+        await new WaitUntil((() => asyncLoad.isDone));
+    }
+
+    public async void LoadField(){
+        Instantiate(loadingSphere, userLocation);
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(field, LoadSceneMode.Single);
         await new WaitUntil((() => asyncLoad.isDone));
     }
 }

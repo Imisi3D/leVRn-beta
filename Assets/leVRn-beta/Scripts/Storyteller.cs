@@ -30,6 +30,9 @@ public class Storyteller : MonoBehaviour
         else if (holder.phase == 4){
             IntroduceTest();
         }
+        else if (holder.phase == 5){
+            IntroduceField();
+        }
     }
 
     public void SetActive(GameObject element){
@@ -410,13 +413,57 @@ public class Storyteller : MonoBehaviour
 
         holder.propController.answer = PropController.Answer.Unanswered;
         await new WaitForSeconds(shortBreak);
+        guide.QuizConclusion();
+        GoToField();
         Debug.Log("Something happen rn");
         //Instantiate(holder.quizTracker.experienceStats);
+    }
+
+    async void GoToField(){
+        await new WaitUntil((() => !guide.audioSource.isPlaying));
+        guide.DoneTalking();
+        await new WaitForSeconds(shortBreak);
+        holder.phase = 5;
+        holder.sceneLoader.LoadField();
     }
     
     
     #endregion
     
+    #region Field
+
+    async void IntroduceField(){
+        guide.ForceIdle();
+        await new WaitForSeconds(longBreak);
+        guide.BallSlide();
+        BallSlide();
+    }
+
+    async void BallSlide(){
+        await new WaitUntil((() => !guide.audioSource.isPlaying));
+        guide.DoneTalking();
+        holder.propController.TurnOffKinematic("SlideBall");
+        await new WaitForSeconds(shortBreak);
+        guide.GuideSlide();
+        GuideSlide();
+    }
+
+    async void GuideSlide(){
+        await new WaitUntil((() => !guide.audioSource.isPlaying));
+        guide.DoneTalking();
+        await new WaitForSeconds(shortBreak);
+        holder.propController.SetGuideLocation("Slide");
+        guide.ChangeLocation();
+        await new WaitUntil((() => !guide.changingLocation));
+        await new WaitForSeconds(shortBreak);
+        holder.propController.SetGuideLocation("Mountain");
+        guide.ChangeLocation();
+        await new WaitUntil((() => !guide.changingLocation));
+        await new WaitForSeconds(shortBreak);
+        guide.RockMountain();
+    }
+    
+    #endregion
     
     async void RemoveTitle(){
         await new WaitForSeconds(4f);
